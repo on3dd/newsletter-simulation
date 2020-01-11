@@ -24,7 +24,7 @@ func NewPost() *Post {
 		PostedAt: time.Now(),
 		Content:  Content{
 			Text:  gofakeit.Paragraph(1, 2, 10, "."),
-			Image: gofakeit.ImageURL(1024, 1024),
+			Image: gofakeit.ImageURL(1920, 1080),
 		},
 	}
 }

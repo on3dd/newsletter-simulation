@@ -41,6 +41,7 @@
         },
         data() {
             return {
+                logs: [],
                 posts: [
                     {
                         id: 1,
@@ -70,8 +71,28 @@
                     }
                 ]
             }
+        },
+        created () {
+            this.connect();
+        },
+        methods: {
+            connect() {
+                this.socket = new WebSocket("ws://localhost:8080/ws");
+
+                this.socket.onopen = () => {
+                    console.log('WebSocket connected to:', this.socket.url);
+
+                    this.logs.push({event: 'WebSocket Connected', data: this.socket.url});
+
+                    this.socket.onmessage = ({data}) => {
+                        this.logs.push({event: 'Recieved message', data});
+                        console.log('Received:', data);
+                    }
+                }
+            },
         }
     }
+
 </script>
 
 <style scoped lang="scss">
