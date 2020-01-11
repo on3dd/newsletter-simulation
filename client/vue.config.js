@@ -1,6 +1,6 @@
 module.exports = {
     productionSourceMap: false,
-    outputDir: '../dist',
+    outputDir: 'dist',
     assetsDir: 'static',
     indexPath: 'index.html'
 };
