@@ -1,21 +1,25 @@
 <template>
-  <div id="app">
-    <b-button>Button</b-button>
-    <b-button variant="danger">Button</b-button>
-    <b-button variant="success">Button</b-button>
-    <b-button variant="outline-primary">Button</b-button>
-  </div>
+    <div>
+        <Navbar></Navbar>
+        <Feed></Feed>
+    </div>
 </template>
 
 <script>
+import Navbar from "./components/Navbar";
+import Feed from "./components/Feed";
 
 export default {
   name: 'app',
   components: {
+      Navbar,
+      Feed
   }
 }
 </script>
 
 <style lang="scss">
-
+ html {
+     font-size: 16px;
+ }
 </style>
