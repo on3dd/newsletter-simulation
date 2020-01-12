@@ -10,7 +10,15 @@
         <b-row class="my-4">
             <b-col>
                 <b-container fluid>
-                    <b-button variant="outline-primary" class="update-posts-btn" size="lg">New posts</b-button>
+                    <b-button
+                            v-if="unseen.length != 0"
+                            variant="outline-primary"
+                            class="update-posts-btn"
+                            size="lg"
+                            @click="renderUnseen"
+                    >
+                        {{ unseen.length }} new {{ unseen.length == 1 ? 'post' : 'posts' }}
+                    </b-button>
                 </b-container>
             </b-col>
         </b-row>
@@ -42,6 +50,7 @@
         data() {
             return {
                 logs: [],
+                unseen: [],
                 posts: [
                     {
                         id: 1,
@@ -72,7 +81,7 @@
                 ]
             }
         },
-        created () {
+        created() {
             this.connect();
         },
         methods: {
@@ -86,13 +95,13 @@
 
                     this.socket.onmessage = ({data}) => {
                         this.logs.push({event: 'Recieved message', data});
-                        // console.log('Received:', data);
-                        // this.addMessage(data)
-                        const post = JSON.parse(data)
-                        console.log(post.posted_at)
-                        this.posts.unshift(post)
+                        this.unseen.push(JSON.parse(data))
                     }
                 }
+            },
+            renderUnseen() {
+                this.posts = this.posts.concat(this.unseen)
+                this.unseen = []
             }
         },
         computed: {
