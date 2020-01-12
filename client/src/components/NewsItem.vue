@@ -94,9 +94,6 @@
             }
         }
 
-        .content-text {
-        }
-
         .content-img {
             overflow: hidden;
             position: relative;

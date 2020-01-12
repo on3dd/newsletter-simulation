@@ -25,6 +25,7 @@
         <b-row
                 v-for="(item, index) in orderedPosts"
                 :key="index"
+                class="post"
         >
             <b-col>
                 <NewsItem
@@ -89,8 +90,6 @@
                 this.socket = new WebSocket("ws://localhost:8080/ws");
 
                 this.socket.onopen = () => {
-                    console.log('WebSocket connected to:', this.socket.url);
-
                     this.logs.push({event: 'WebSocket Connected', data: this.socket.url});
 
                     this.socket.onmessage = ({data}) => {
@@ -114,8 +113,7 @@
                     second: 'numeric'
                 }
 
-                const date = Date.parse(time)
-                return new Date(date).toLocaleDateString("en-US", options)
+                return new Date(Date.parse(time)).toLocaleDateString("en-US", options)
             }
         },
         computed: {
@@ -130,14 +128,7 @@
 <style scoped lang="scss">
     .update-posts-btn {
         width: 100%;
-        /*color: #2980b9;*/
-        /*border-color: #2980b9;*/
-        /*&:hover {*/
-        /*    color: #2980b9;*/
-        /*    background-color: darken(white, 5%);*/
-        /*}*/
     }
-
     hr {
         margin-top: 2rem;
         margin-bottom: 2rem;
