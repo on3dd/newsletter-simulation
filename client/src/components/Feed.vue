@@ -15,14 +15,14 @@
             </b-col>
         </b-row>
         <b-row
-                v-for="(item, index) in posts"
+                v-for="(item, index) in orderedPosts"
                 :key="index"
         >
             <b-col>
                 <NewsItem
                         :id="item.id"
                         :author="item.author"
-                        :posted-at="item.postedAt"
+                        :posted_at="item.posted_at"
                         :content="item.content"
                 />
                 <hr>
@@ -50,7 +50,7 @@
                             name: "Barack Obama",
                             image: "https://avatars0.githubusercontent.com/u/45851782?s=460&v="
                         },
-                        postedAt: "one hour ago",
+                        posted_at: "2020-01-12T11:51:20.360547726+10:00",
                         content: {
                             text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. A debitis est iste nulla quos. Amet consequuntur, cupiditate eaque illo incidunt libero necessitatibus odio, omnis pariatur provident quas quod tempore vitae.",
                             image: "https://picsum.photos/1920/1080"
@@ -63,7 +63,7 @@
                             name: "Vova Putin",
                             image: "https://deita.ru/media/images/___________NVxAkAP.2e16d0ba.fill-950x690-c100.jpg"
                         },
-                        postedAt: "two hours ago",
+                        posted_at: "2020-01-12T11:52:40.360547726+10:00",
                         content: {
                             text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. A debitis est iste nulla quos. Amet consequuntur, cupiditate eaque illo incidunt libero necessitatibus odio, omnis pariatur provident quas quod tempore vitae.",
                             image: "https://picsum.photos/1920/1000"
@@ -86,10 +86,19 @@
 
                     this.socket.onmessage = ({data}) => {
                         this.logs.push({event: 'Recieved message', data});
-                        console.log('Received:', data);
+                        // console.log('Received:', data);
+                        // this.addMessage(data)
+                        const post = JSON.parse(data)
+                        console.log(post.posted_at)
+                        this.posts.unshift(post)
                     }
                 }
-            },
+            }
+        },
+        computed: {
+            orderedPosts() {
+                return _.orderBy(this.posts, "posted_at", "desc");
+            }
         }
     }
 

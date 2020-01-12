@@ -13,7 +13,7 @@
                             <a :href="'users/'+id" style="line-height: 20px">
                                 <span>{{ authorName }}</span>
                             </a>
-                            <small :title="postedAt">{{ postedAt }}</small>
+                            <small :title="posted_at">{{ posted_at }}</small>
                         </div>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
             author: {
                 required: true
             },
-            postedAt: {
+            posted_at: {
                 required: true
             },
             content: {
