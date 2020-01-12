@@ -30,7 +30,7 @@
                 <NewsItem
                         :id="item.id"
                         :author="item.author"
-                        :posted_at="item.posted_at"
+                        :posted_at="timeToDate(item.posted_at)"
                         :content="item.content"
                 />
                 <hr>
@@ -102,12 +102,26 @@
             renderUnseen() {
                 this.posts = this.posts.concat(this.unseen)
                 this.unseen = []
+            },
+            timeToDate(time) {
+                const options = {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    timezone: 'UTC',
+                    hour: 'numeric',
+                    minute: 'numeric',
+                    second: 'numeric'
+                }
+
+                const date = Date.parse(time)
+                return new Date(date).toLocaleDateString("en-US", options)
             }
         },
         computed: {
             orderedPosts() {
                 return _.orderBy(this.posts, "posted_at", "desc");
-            }
+            },
         }
     }
 
