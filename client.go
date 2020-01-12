@@ -37,9 +37,9 @@ func serveWs(send <-chan []byte, w http.ResponseWriter, r *http.Request) {
 	client := &Client{send:send, conn:conn}
 
 	log.Println("Client Connected")
-	if err := conn.WriteMessage(1, []byte("Hi Client!")); err != nil {
-		log.Printf("Cannot write message to ws connection, error: %v", err)
-	}
+	//if err := conn.WriteMessage(1, []byte("Hi Client!")); err != nil {
+	//	log.Printf("Cannot write message to ws connection, error: %v", err)
+	//}
 
 	go client.writePump(conn)
 }
